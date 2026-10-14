@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#050505" />
+    <title>Draw With Flowers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styling.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.4.2/gsap.min.js" defer></script>
+    <script type="module" src="script.js"></script>
+  </head>
+  <body>
+    <section id="intro-screen" class="intro-screen" aria-label="Start the music">
+      <button id="record-player" class="record-player" type="button" aria-label="Play the music and begin">
+        <span class="turntable" aria-hidden="true">
+          <span class="vinyl">
+            <span class="vinyl-grooves"></span>
+            <span class="record-label"><span class="label-center"></span></span>
+          </span>
+          <span class="tonearm">
+            <span class="tonearm-joint"></span>
+            <span class="tonearm-stick"><span class="tonearm-head"></span></span>
+          </span>
+          <span class="turntable-mark"></span>
+        </span>
+        <span class="record-hint">Click the record to begin</span>
+      </button>
+    </section>
+
+    <main id="flower-area" class="flower-area" aria-label="Interactive flower canvas" hidden>
+      <canvas id="canvas" aria-label="Click to plant a flower, then move your pointer to fill the screen"></canvas>
+      <div id="progress" class="progress" role="progressbar" aria-label="Screen filled with flowers" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <span id="progress-fill"></span>
+      </div>
+    </main>
+
+    <section id="next-area" class="next-area" aria-labelledby="next-heading" hidden>
+      <div class="calendar-scene">
+        <figure class="calendar-photo calendar-photo-star">
+          <img src="star-photo.png" alt="A star-shaped photo" />
+        </figure>
+        <figure class="calendar-photo calendar-photo-heart">
+          <img src="heart-photo.png" alt="A heart-shaped close-up photo" />
+        </figure>
+        <article class="calendar" aria-label="October 2026 calendar">
+          <div class="calendar-binding" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <header class="calendar-header">
+            <div class="calendar-month"><span>Month</span><strong>October</strong></div>
+            <div class="calendar-year"><span>Year</span><strong>2026</strong></div>
+            <h1 id="next-heading" tabindex="-1">A Very Very Special Day <span aria-hidden="true">✦</span></h1>
+          </header>
+          <div class="calendar-grid" role="grid" aria-label="October 2026">
+            <div class="weekday" role="columnheader">Sunday</div><div class="weekday" role="columnheader">Monday</div><div class="weekday" role="columnheader">Tuesday</div><div class="weekday" role="columnheader">Wednesday</div><div class="weekday" role="columnheader">Thursday</div><div class="weekday" role="columnheader">Friday</div><div class="weekday" role="columnheader">Saturday</div>
+            <div class="day empty" role="gridcell"></div><div class="day empty" role="gridcell"></div><div class="day empty" role="gridcell"></div><div class="day empty" role="gridcell"></div><div class="day" role="gridcell">1</div><div class="day" role="gridcell">2</div><div class="day" role="gridcell">3</div>
+            <div class="day" role="gridcell">4</div><div class="day" role="gridcell">5</div><div class="day" role="gridcell">6</div><div class="day" role="gridcell">7</div><div class="day" role="gridcell">8</div><div class="day" role="gridcell">9</div><div class="day" role="gridcell">10</div>
+            <div class="day" role="gridcell">11</div><div class="day" role="gridcell">12</div><div class="day" role="gridcell">13</div><div class="day" role="gridcell">14</div><div class="day photo-day" role="gridcell" aria-label="October 15, 2026"><img src="pic1-cutout.png" alt="A child wearing a birthday hat" /><span class="photo-day-number">15</span></div><div class="day special-day" role="gridcell" aria-label="October 16, 2026"><button id="calendar-next-button" class="calendar-next-button" type="button" aria-label="Continue from October 16, 2026"><span>16</span><i aria-hidden="true">♥</i></button></div><div class="day" role="gridcell">17</div>
+            <div class="day" role="gridcell">18</div><div class="day" role="gridcell">19</div><div class="day" role="gridcell">20</div><div class="day" role="gridcell">21</div><div class="day" role="gridcell">22</div><div class="day" role="gridcell">23</div><div class="day" role="gridcell">24</div>
+            <div class="day" role="gridcell">25</div><div class="day" role="gridcell">26</div><div class="day" role="gridcell">27</div><div class="day" role="gridcell">28</div><div class="day" role="gridcell">29</div><div class="day" role="gridcell">30</div><div class="day" role="gridcell">31</div>
+          </div>
+          <div class="calendar-bunting" aria-hidden="true"><span>♥</span><span>✿</span><span>♥</span><span>✿</span><span>♥</span></div>
+        </article>
+        <p class="calendar-note">“The Lord bless you and keep you; the Lord make his face shine on you and be gracious to you; the Lord turn his face toward you and give you peace.”’ Numbers 6:24-26 <span aria-hidden="true"></span></p>
+        <p class="calendar-footer"></p>
+      </div>
+    </section>
+
+    <section id="after-calendar" class="next-area after-calendar" aria-labelledby="after-calendar-heading" hidden>
+      <div class="cake-scene">
+        <h2 id="after-calendar-heading" class="cake-greeting" tabindex="-1">Make a Wish!</h2>
+        <div class="cake-display" role="img" aria-label="Four-tier cream birthday cake decorated with pink flowers and a candle">
+          <div class="cake-tier cake-tier-bottom"></div>
+          <div class="cake-tier cake-tier-third"></div>
+          <div class="cake-tier cake-tier-second"></div>
+          <div class="cake-tier cake-tier-top">
+            <div class="cake-candle" aria-hidden="true"><span class="cake-flame"></span></div>
+          </div>
+          <div class="cake-blossom cake-blossom-top" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><b></b></div>
+          <div class="cake-blossom cake-blossom-middle" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><b></b></div>
+          <div class="cake-blossom cake-blossom-bottom" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><b></b></div>
+          <div class="cake-platter" aria-hidden="true"></div>
+        </div>
+        <div class="candle-prompt">
+          <p id="mic-light-status" class="mic-light-status" aria-live="polite">Blow toward your microphone to blow out the candle.</p>
+          <div class="mic-level" aria-hidden="true"><span id="mic-level-fill"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="after-cake" class="next-area after-cake" aria-labelledby="after-cake-heading" aria-description="Click anywhere to open the letter" hidden>
+      <div class="birthday-board">
+        <header class="birthday-board-header">
+          <p class="birthday-kicker">To My Incredible Kakampi!</p>
+          <h2 id="after-cake-heading" tabindex="-1">Happy Birthday, Rah!</h2>
+        </header>
+        <div class="birthday-collage" aria-label="Birthday collage celebrating age 19">
+          <div class="birthday-age" aria-label="19 years old">
+            <span class="age-digit">1</span><span class="age-digit">9</span>
+          </div>
+          <figure class="birthday-photo">
+            <img src="23-transparent.png" alt="A favorite photo in its original heart frame" />
+          </figure>
+        </div>
+        <p class="birthday-date">October 16, 2026 <span aria-hidden="true">♥</span></p>
+      </div>
+    </section>
+
+    <section id="letter-area" class="next-area letter-area" aria-labelledby="letter-heading" hidden>
+      <div class="letter-scene">
+        <p class="letter-eyebrow">A letter for you</p>
+        <h2 id="letter-heading" tabindex="-1">Open the letter</h2>
+        <p class="letter-intro">Tap the envelope.</p>
+        <button id="letter-envelope" class="letter-envelope" type="button" aria-label="Open your letter">
+          <span class="letter-paper-peek">To my Dearest Rah</span>
+          <span class="letter-envelope-body" aria-hidden="true"></span>
+          <span class="letter-flap" aria-hidden="true"></span>
+        </button>
+        <button id="letter-back-button" class="letter-back-button" type="button">Back to birthday</button>
+      </div>
+    </section>
+
+    <div id="birthday-letter-modal" class="birthday-letter-modal" role="dialog" aria-modal="true" aria-labelledby="letter-modal-title" hidden>
+      <button id="letter-modal-close" class="letter-modal-close" type="button" aria-label="Close letter">×</button>
+      <article class="birthday-letter-paper">
+        <h3 id="letter-modal-title">To Rah,</h3>
+        <p>Happiest birthday, Rahh. Akalain mo, 19 ka na; parang kailan lang kaka-debut mo lang, haha. I just want to say na I'm so lucky to have you as a friend. Thank you for constantly making the people around you smile na para bang contagious ung ngiti at jokes mo. I feel like I've got to know you so much more, and I'm forever grateful, and I honestly cannot imagine my last year na wala ka at syempre. Thank you for being there and growing with me. Thank you for all the laughs and memories we made in the past year we've known each other; you will always have a special place in my heart. I constantly admire the person you are, the resilience, the kindness, the hopefulness, and ung lakas ng loob mo na hinding-hindi matutumba. May this year bring you everything you hope for. Sana naman this small gesture is a constant reminder to you how great a person you are; don't ever doubt that. Kahit saang mang sulok ng mundo tayo dalhin, I'll always be here for you no matter what. I hope you enjoy your very special day; you deserve the best. May God and his blessings be with you every single day, and may he shower you with everything good.</p>
+        <p class="letter-signature">- Your BFF Drei</p>
+      </article>
+    </div>
+
+    <audio id="music" src="Isaac%20Moore%20-%20It%20Might%20Be%20You%20(Instrumental)%20-%20(320%20Kbps).mp3" preload="none" loop></audio>
+    <button id="skip-button" class="skip-button" type="button">Skip intro</button>
+    <div class="volume-control">
+      <input id="volume-slider" class="volume-slider" type="range" min="0" max="1" step="0.01" value="0.65" aria-label="Music volume" />
+    </div>
+
+  </body>
+</html>
